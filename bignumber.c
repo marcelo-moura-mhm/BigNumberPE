@@ -48,3 +48,11 @@ BigNumber bignumber_read() {
     }
     return number;
 }
+
+void bignumber_print(BigNumber number) {
+    BNNode digit = number->tail;
+    while(digit != NULL) {
+        printf("%c", digit->data);
+        digit = digit->previous;
+    }
+}

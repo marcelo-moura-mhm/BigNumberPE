@@ -9,6 +9,6 @@ BNNode bignumber_node(char data);
 BigNumber bignumber();
 void bignumber_push_front();
 BigNumber bignumber_read();
-BigNumber bignumber_print(BigNumber number);
+void bignumber_print(BigNumber number);
 
 #endif
