@@ -6,15 +6,16 @@ struct _bignumber_node {
     char data;
     BNNode next;
     BNNode previous;
-}
+};
 
 struct _bignumber {
     BNNode head;
     BNNode tail;
-}
+};
 
 BNNode bignumber_node(char data) {
     BNNode node = malloc(sizeof(struct _bignumber_node));
+    node->data = data;
     node->next = NULL;
     node->previous = NULL;
     return node;
@@ -55,4 +56,5 @@ void bignumber_print(BigNumber number) {
         printf("%c", digit->data);
         digit = digit->previous;
     }
+    printf("\n");
 }
