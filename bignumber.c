@@ -83,13 +83,26 @@ BigNumber bignumber_sum(BigNumber a, BigNumber b) {
 	char carry = 0;
 	
 	while(digit_a != NULL || digit_b != NULL) {
-		bignumber_push_back(c, digit_to_char((digit_a->data - '0' + digit_b->data - '0'+carry)%10));
+	
+		char sum_digits;
 		
-		carry = (digit_a->data - '0' + digit_b->data - '0' + carry)/10;
+		//Nunca serão os dois NULL
+		if(digit_a == NULL) {
+			sum_digits = digit_b->data - '0';
+		} else if(digit_b == NULL) {
+			sum_digits = digit_a->data - '0';
+		} else {
+			sum_digits = digit_a->data - '0' + digit_b->data - '0';
+		}
+	
+		bignumber_push_back(c, digit_to_char((sum_digits + carry)%10));
 		
-		digit_a = digit_a->next;
-		digit_b = digit_b->next;
+		carry = (sum_digits + carry)/10;
 		
+		if(digit_a != NULL)
+			digit_a = digit_a->next;
+		if(digit_b != NULL)
+			digit_b = digit_b->next;
 	}
 	
 	if(carry != 0) {
