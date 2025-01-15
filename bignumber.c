@@ -2,19 +2,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+char digit_to_char(char n) {
+	return n+'0';
+}
+
 struct _bignumber_node {
     char data;
-    BNNode next;
-    BNNode previous;
+    BigNumber_Node next;
+    BigNumber_Node previous;
 };
 
 struct _bignumber {
-    BNNode head;
-    BNNode tail;
+    BigNumber_Node head;
+    BigNumber_Node tail;
 };
 
-BNNode bignumber_node(char data) {
-    BNNode node = malloc(sizeof(struct _bignumber_node));
+BigNumber_Node bignumber_node(char data) {
+    BigNumber_Node node = malloc(sizeof(struct _bignumber_node));
     node->data = data;
     node->next = NULL;
     node->previous = NULL;
@@ -29,15 +33,27 @@ BigNumber bignumber() {
 }
 
 void bignumber_push_front(BigNumber number, char data) {
-    BNNode new = bignumber_node(data);
+    BigNumber_Node new = bignumber_node(data);
     if(number->tail == NULL) {
         number->tail = new;
         number->head = new;
     } else {
         number->head->previous = new;
-        number->head->previous->next = number->head;
+        new->next = number->head;
         number->head = number->head->previous;
     }
+}
+
+void bignumber_push_back(BigNumber number, char data) {
+	BigNumber_Node new = bignumber_node(data);
+	if(number->head == NULL) {
+		number->head = new;
+		number->tail = new; 
+	} else {
+		number->tail->next = new;
+		new->previous = number->tail;
+		number->tail = number->tail->next;
+	}
 }
 
 BigNumber bignumber_read() {
@@ -51,10 +67,34 @@ BigNumber bignumber_read() {
 }
 
 void bignumber_print(BigNumber number) {
-    BNNode digit = number->tail;
+    BigNumber_Node digit = number->tail;
     while(digit != NULL) {
         printf("%c", digit->data);
         digit = digit->previous;
     }
     printf("\n");
+}
+
+BigNumber bignumber_sum(BigNumber a, BigNumber b) {
+	BigNumber c = bignumber();
+	BigNumber_Node digit_a = a->head;
+	BigNumber_Node digit_b = b->head;
+	
+	char carry = 0;
+	
+	while(digit_a != NULL || digit_b != NULL) {
+		bignumber_push_back(c, digit_to_char((digit_a->data - '0' + digit_b->data - '0'+carry)%10));
+		
+		carry = (digit_a->data - '0' + digit_b->data - '0' + carry)/10;
+		
+		digit_a = digit_a->next;
+		digit_b = digit_b->next;
+		
+	}
+	
+	if(carry != 0) {
+		bignumber_push_back(c, digit_to_char(carry));
+	}
+	
+	return c;
 }
