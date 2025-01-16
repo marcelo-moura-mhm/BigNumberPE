@@ -112,6 +112,41 @@ BigNumber bignumber_sum(BigNumber a, BigNumber b) {
 	return c;
 }
 
+BigNumber bignumber_minus(BigNumber a, BigNumber b) {
+	BigNumber c = bignumber();
+	BigNumber_Node digit_a = a->head;
+	BigNumber_Node digit_b = b->head;
+	
+	while(digit_a != NULL || digit_b != NULL) {
+		if(digit_a->data >= digit_b->data) {
+			bignumber_push_back(c, digit_to_char(digit_a->data - digit_b->data));
+		} else {
+			bignumber_push_back(c, digit_to_char(digit_a->data+10 - digit_b->data));
+			digit_a = digit_a->next;
+			digit_b = digit_b->next;
+			
+			while(digit_a->data < digit_b->data) {
+				if(digit_a->data == 0) {
+					bignumber_push_back(c, digit_to_char(digit_a->data+10 - digit_b->data));
+				} else {
+					bignumber_push_back(c, digit_to_char(digit_a->data-1+10 - digit_b->data));
+				}
+				digit_a = digit_a->next;
+				digit_b = digit_b->next;
+			}
+			if(digit_a->data-1 - digit_b->data != 0)
+				bignumber_push_back(c, digit_to_char(digit_a->data-1 - digit_b->data));
+		}
+		
+		if(digit_a != NULL)
+			digit_a = digit_a->next;
+		if(digit_b != NULL)
+			digit_b = digit_b->next;
+	}
+	
+	return c;
+}
+
 void bignumber_free(BigNumber number) {
 	BigNumber_Node p = number->head;
 	while(p != NULL) {
