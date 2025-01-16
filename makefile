@@ -1,5 +1,5 @@
-prog: client.o bignumber.o
-	gcc -std=c99 -Wall -Wextra -Wvla -g client.o bignumber.o -o prog
+cliente: client.o bignumber.o
+	gcc -std=c99 -Wall -Wextra -Wvla -g client.o bignumber.o -o cliente
     
 client.o: client.c bignumber.h
 	gcc -std=c99 -Wall -Wextra -Wvla -g client.c -c

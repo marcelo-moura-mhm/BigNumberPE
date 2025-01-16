@@ -5,7 +5,12 @@ int main() {
     BigNumber b = bignumber_read();
     
     BigNumber c = bignumber_sum(a, b);
+    bignumber_free(a);
+    bignumber_free(b);
+    
     bignumber_print(c);
+    
+    bignumber_free(c);
     
     return 0;
 }

@@ -111,3 +111,13 @@ BigNumber bignumber_sum(BigNumber a, BigNumber b) {
 	
 	return c;
 }
+
+void bignumber_free(BigNumber number) {
+	BigNumber_Node p = number->head;
+	while(p != NULL) {
+		free(p->previous);
+		p = p->next;
+	}
+	free(number->tail);
+	free(number);
+}
