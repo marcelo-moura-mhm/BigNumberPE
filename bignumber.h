@@ -14,8 +14,8 @@ BigNumber bignumber_read();
 void bignumber_print(BigNumber number);
 void remove_left_zeros(BigNumber number);
 
-BigNumber bignumber_sum(BigNumber a, BigNumber b);
-BigNumber bignumber_minus(BigNumber a, BigNumber b);
+BigNumber bignumber_pos_sum(BigNumber a, BigNumber b);
+BigNumber bignumber_pos_minus(BigNumber a, BigNumber b);
 
 void bignumber_free(BigNumber number);
 

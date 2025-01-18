@@ -15,6 +15,7 @@ struct _bignumber_node {
 struct _bignumber {
     BigNumber_Node head;
     BigNumber_Node tail;
+    char signal;
 };
 
 BigNumber_Node bignumber_node(char data) {
@@ -29,6 +30,7 @@ BigNumber bignumber() {
     BigNumber number = malloc(sizeof(struct _bignumber));
     number->head = NULL;
     number->tail = NULL;
+    number->signal = '+';
     return number;
 }
 
@@ -59,6 +61,13 @@ void bignumber_push_back(BigNumber number, char data) {
 BigNumber bignumber_read() {
     BigNumber number = bignumber();
     char next_digit = getchar();
+    if(next_digit == '+') {
+    	number->signal = '+';
+    	next_digit = getchar();
+    } else if (next_digit == '-') {
+    	number ->signal = '-';
+    	next_digit = getchar();
+    }
     while(next_digit != '\n') {
         bignumber_push_front(number, next_digit);
         next_digit = getchar();
@@ -67,6 +76,10 @@ BigNumber bignumber_read() {
 }
 
 void bignumber_print(BigNumber number) {
+
+	if(number->signal == '-') {
+		printf("%c", '-');
+	}	
     BigNumber_Node digit = number->tail;
     while(digit != NULL) {
         printf("%c", digit->data);
@@ -85,7 +98,7 @@ void remove_left_zeros(BigNumber number) {
 	}
 }
 
-BigNumber bignumber_sum(BigNumber a, BigNumber b) {
+BigNumber bignumber_pos_sum(BigNumber a, BigNumber b) {
 	BigNumber c = bignumber();
 	BigNumber_Node digit_a = a->head;
 	BigNumber_Node digit_b = b->head;
@@ -122,7 +135,7 @@ BigNumber bignumber_sum(BigNumber a, BigNumber b) {
 	return c;
 }
 
-BigNumber bignumber_minus(BigNumber a, BigNumber b) {
+BigNumber bignumber_pos_minus(BigNumber a, BigNumber b) {
 	BigNumber c = bignumber();
 	BigNumber_Node digit_a = a->head;
 	BigNumber_Node digit_b = b->head;
