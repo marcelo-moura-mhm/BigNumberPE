@@ -7,3 +7,5 @@ client-test
 test-input.txt
 test-output.txt
 output.txt
+bignumber_pos_operations.o
+bignumber_operations.o

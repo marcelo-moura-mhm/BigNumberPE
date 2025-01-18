@@ -3,12 +3,24 @@
 
 char digit_to_char(char n);
 
-typedef struct _bignumber_node* BigNumber_Node;
-typedef struct _bignumber* BigNumber;
+struct _bignumber_node {
+    char data;
+    struct _bignumber_node *next;
+    struct _bignumber_node *previous;
+};
+
+typedef struct _bignumber_node *BigNumber_Node;
+
+typedef struct _bignumber {
+    BigNumber_Node head;
+    BigNumber_Node tail;
+    char signal;
+}* BigNumber;
 
 BigNumber_Node bignumber_node(char data);
 
 BigNumber bignumber();
+void bignumber_push_back(BigNumber number, char data);
 void bignumber_push_front(BigNumber number, char data);
 BigNumber bignumber_read();
 void bignumber_print(BigNumber number);
