@@ -12,6 +12,7 @@ BigNumber bignumber();
 void bignumber_push_front(BigNumber number, char data);
 BigNumber bignumber_read();
 void bignumber_print(BigNumber number);
+void remove_left_zeros(BigNumber number);
 
 BigNumber bignumber_sum(BigNumber a, BigNumber b);
 BigNumber bignumber_minus(BigNumber a, BigNumber b);

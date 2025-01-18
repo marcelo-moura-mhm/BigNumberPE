@@ -75,6 +75,16 @@ void bignumber_print(BigNumber number) {
     printf("\n");
 }
 
+void remove_left_zeros(BigNumber number) {
+	BigNumber_Node digit = number->tail;
+	while(digit->data == '0' && digit->previous != NULL) {
+		digit = digit->previous;
+		number->tail = digit;
+		free(digit->next);
+		digit->next = NULL;
+	}
+}
+
 BigNumber bignumber_sum(BigNumber a, BigNumber b) {
 	BigNumber c = bignumber();
 	BigNumber_Node digit_a = a->head;
@@ -117,32 +127,33 @@ BigNumber bignumber_minus(BigNumber a, BigNumber b) {
 	BigNumber_Node digit_a = a->head;
 	BigNumber_Node digit_b = b->head;
 	
+	char carry = 0;
 	while(digit_a != NULL || digit_b != NULL) {
-		if(digit_a->data >= digit_b->data) {
-			bignumber_push_back(c, digit_to_char(digit_a->data - digit_b->data));
-		} else {
-			bignumber_push_back(c, digit_to_char(digit_a->data+10 - digit_b->data));
-			digit_a = digit_a->next;
-			digit_b = digit_b->next;
-			
-			while(digit_a->data < digit_b->data) {
-				if(digit_a->data == 0) {
-					bignumber_push_back(c, digit_to_char(digit_a->data+10 - digit_b->data));
+		if(!digit_b) {
+			if(digit_a->data == '0') {
+				if(carry == 1) {
+					bignumber_push_back(c, '9');
 				} else {
-					bignumber_push_back(c, digit_to_char(digit_a->data-1+10 - digit_b->data));
+					bignumber_push_back(c, '0');
 				}
-				digit_a = digit_a->next;
-				digit_b = digit_b->next;
+			} else {
+			bignumber_push_back(c, digit_a->data - carry);
+			carry = 0;
 			}
-			if(digit_a->data-1 - digit_b->data != 0)
-				bignumber_push_back(c, digit_to_char(digit_a->data-1 - digit_b->data));
+		} else if(digit_a->data - carry >= digit_b->data) {
+			bignumber_push_back(c, digit_to_char(digit_a->data - carry - digit_b->data));
+			carry = 0;
+		} else {
+			bignumber_push_back(c, digit_to_char(digit_a->data+10 - carry - digit_b->data));
+			carry = 1;
 		}
-		
 		if(digit_a != NULL)
 			digit_a = digit_a->next;
 		if(digit_b != NULL)
 			digit_b = digit_b->next;
 	}
+	
+	remove_left_zeros(c);
 	
 	return c;
 }

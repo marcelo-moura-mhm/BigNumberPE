@@ -4,7 +4,7 @@ int main() {
     BigNumber a = bignumber_read();
     BigNumber b = bignumber_read();
     
-    BigNumber c = bignumber_minus(a, b);
+    BigNumber c = bignumber_sum(a, b);
     bignumber_free(a);
     bignumber_free(b);
     

@@ -1,3 +1,9 @@
 bignumber.o
 client.o
 cliente
+client-test.c
+client-test.o
+client-test
+test-input.txt
+test-output.txt
+output.txt
