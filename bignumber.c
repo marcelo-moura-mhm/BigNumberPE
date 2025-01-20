@@ -64,8 +64,7 @@ BigNumber bignumber_read() {
 }
 
 void bignumber_print(BigNumber number) {
-
-	if(number->signal == '-') {
+	if(number->signal == '-' && number->tail->data != '0') { //evita imprimir -0
 		printf("%c", '-');
 	}	
     BigNumber_Node digit = number->tail;
@@ -74,6 +73,36 @@ void bignumber_print(BigNumber number) {
         digit = digit->previous;
     }
     printf("\n");
+}
+
+int is_module_less_than(BigNumber a, BigNumber b) {
+	BigNumber_Node digit_a = a->head;
+	BigNumber_Node digit_b = b->head;
+	
+	while(digit_a != NULL || digit_b != NULL) {
+		if(!digit_a) {
+			return 1;
+		}
+		if(!digit_b) {
+			return 0;
+		}
+		digit_a = digit_a->next;
+		digit_b = digit_b->next;
+	}
+	
+	digit_a = a->tail;
+	digit_b = b->tail;
+	
+	while(digit_a != NULL) {
+		if(digit_a->data < digit_b->data) {
+			return 1;
+		} else if(digit_a->data > digit_b->data) {
+			return 0;
+		}
+		digit_a = digit_a->next;
+		digit_b = digit_b->next;
+	}
+	return 0; //são iguais
 }
 
 void remove_left_zeros(BigNumber number) {

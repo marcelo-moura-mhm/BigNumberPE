@@ -13,9 +13,9 @@ BigNumber bignumber_pos_sum(BigNumber a, BigNumber b) {
 		char sum_digits;
 		
 		//Nunca serão os dois NULL
-		if(digit_a == NULL) {
+		if(!digit_a) {
 			sum_digits = digit_b->data - '0';
-		} else if(digit_b == NULL) {
+		} else if(!digit_b) {
 			sum_digits = digit_a->data - '0';
 		} else {
 			sum_digits = digit_a->data - '0' + digit_b->data - '0';
