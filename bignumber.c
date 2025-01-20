@@ -99,8 +99,8 @@ int is_module_less_than(BigNumber a, BigNumber b) {
 		} else if(digit_a->data > digit_b->data) {
 			return 0;
 		}
-		digit_a = digit_a->next;
-		digit_b = digit_b->next;
+		digit_a = digit_a->previous;
+		digit_b = digit_b->previous;
 	}
 	return 0; //são iguais
 }
