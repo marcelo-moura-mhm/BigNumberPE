@@ -73,3 +73,30 @@ BigNumber bignumber_pos_minus(BigNumber a, BigNumber b) {
 	
 	return c;
 }
+
+BigNumber bignumber_pos_product(BigNumber_Node a, BigNumber_Node b) {
+	BigNumber c = bignumber();
+	BigNumber_Node digit_a = a;
+		
+	char carry = 0;
+	while(digit_a != NULL) {
+		bignumber_push_back(c, digit_to_char(((digit_a->data-'0') * (b->data-'0') + carry)%10));
+		carry = ((digit_a->data-'0') * (b->data-'0') + carry)/10;
+		
+		digit_a = digit_a->next;
+	}
+	if(carry != 0) {
+		bignumber_push_back(c, digit_to_char(carry));
+	}
+		
+	if(!b->next)
+		return c;
+		
+	BigNumber d = bignumber_pos_product(a, b->next);
+	bignumber_push_front(d, '0');
+	BigNumber res = bignumber_pos_sum(c, d);
+		
+	bignumber_free(c);
+	bignumber_free(d);
+	return res;
+}

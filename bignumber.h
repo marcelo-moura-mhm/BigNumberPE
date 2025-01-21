@@ -30,9 +30,11 @@ int is_module_less_than(BigNumber a, BigNumber b);
 
 BigNumber bignumber_pos_sum(BigNumber a, BigNumber b);
 BigNumber bignumber_pos_minus(BigNumber a, BigNumber b);
+BigNumber bignumber_pos_product(BigNumber_Node a, BigNumber_Node b);
 
 BigNumber bignumber_sum(BigNumber a, BigNumber b);
 BigNumber bignumber_minus(BigNumber a, BigNumber b);
+BigNumber bignumber_product(BigNumber a, BigNumber b);
 
 void bignumber_free(BigNumber number);
 

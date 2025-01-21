@@ -51,3 +51,13 @@ BigNumber bignumber_minus(BigNumber a, BigNumber b) {
 		return c;
 	}
 }
+
+BigNumber bignumber_product(BigNumber a, BigNumber b) {
+	if((a->signal == '+' && b->signal == '+') || (a->signal == '-' && b->signal == '-')) {
+		return bignumber_pos_product(a->head, b->head);
+	} else {
+		BigNumber c = bignumber_pos_product(a->head, b->head);
+		c->signal = '-';
+		return c;
+	}
+}
