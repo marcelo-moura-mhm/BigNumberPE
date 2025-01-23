@@ -1,5 +1,6 @@
 #include "bignumber.h"
 #include <stddef.h>
+#include <math.h>
 
 BigNumber bignumber_pos_sum(BigNumber a, BigNumber b) {
 	BigNumber c = bignumber();
@@ -99,4 +100,34 @@ BigNumber bignumber_pos_product(BigNumber_Node a, BigNumber_Node b) {
 	bignumber_free(c);
 	bignumber_free(d);
 	return res;
+}
+
+BigNumber bignumber_pos_slow_division(BigNumber a, BigNumber b) {
+	BigNumber counter = bignumber();
+	bignumber_push_back(counter, '0');
+	
+	if(is_module_less_than(a, b)) {
+		return counter;
+	}
+	
+	BigNumber ONE = bignumber();
+	bignumber_push_back(ONE, '1');
+	
+	BigNumber c = bignumber_minus(a, b);
+	
+	BigNumber counter_temp = counter;
+	counter = bignumber_pos_sum(counter, ONE);
+	bignumber_free(counter_temp);
+	
+	while (!is_module_less_than(c, b)) {
+		BigNumber d = bignumber_minus(c, b);
+		bignumber_free(c);
+		c = d;
+		BigNumber counter_temp = counter;
+		counter = bignumber_pos_sum(counter, ONE);
+		bignumber_free(counter_temp);
+	}
+	
+	bignumber_free(ONE);
+	return counter;
 }

@@ -1,4 +1,5 @@
 #include "bignumber.h"
+#include <stdlib.h>
 
 BigNumber bignumber_sum(BigNumber a, BigNumber b) {
 	if (a->signal == '+' && b->signal == '+') {
@@ -60,4 +61,19 @@ BigNumber bignumber_product(BigNumber a, BigNumber b) {
 		c->signal = '-';
 		return c;
 	}
+}
+
+BigNumber bignumber_division(BigNumber a, BigNumber b) {
+	BigNumber c = bignumber_copy(a);
+	BigNumber d = bignumber_copy(b);
+	
+	BigNumber res;
+	
+	if((a->signal == '+' && b->signal == '+') || (a->signal == '-' && b->signal == '-')) {
+		res = bignumber_pos_slow_division(c, d);
+	} else {
+		res = bignumber_pos_slow_division(c, d);
+		res->signal = '-';
+	}
+	return res;
 }

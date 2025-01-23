@@ -26,15 +26,19 @@ BigNumber bignumber_read();
 void bignumber_print(BigNumber number);
 void remove_left_zeros(BigNumber number);
 
+BigNumber bignumber_copy(BigNumber number);
+
 int is_module_less_than(BigNumber a, BigNumber b);
 
 BigNumber bignumber_pos_sum(BigNumber a, BigNumber b);
 BigNumber bignumber_pos_minus(BigNumber a, BigNumber b);
 BigNumber bignumber_pos_product(BigNumber_Node a, BigNumber_Node b);
+BigNumber bignumber_pos_slow_division(BigNumber a, BigNumber b);
 
 BigNumber bignumber_sum(BigNumber a, BigNumber b);
 BigNumber bignumber_minus(BigNumber a, BigNumber b);
 BigNumber bignumber_product(BigNumber a, BigNumber b);
+BigNumber bignumber_division(BigNumber a, BigNumber b);
 
 void bignumber_free(BigNumber number);
 
