@@ -128,6 +128,7 @@ BigNumber bignumber_pos_slow_division(BigNumber a, BigNumber b) {
 		bignumber_free(counter_temp);
 	}
 	
+	bignumber_free(c);
 	bignumber_free(ONE);
 	return counter;
 }

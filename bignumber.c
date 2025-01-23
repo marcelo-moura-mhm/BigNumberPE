@@ -105,34 +105,6 @@ int is_module_less_than(BigNumber a, BigNumber b) {
 	return 2; //são iguais
 }
 
-/*
-int module_less_than_from_node(BigNumber_Node a, BigNumber_Node b) {
-	BigNumber_Node digit_a = a;
-	BigNumber_Node digit_b = b;
-	
-	while(digit_a->next != NULL || digit_b->next != NULL) {
-		if(!digit_a->next) {
-			return 1;
-		}
-		if(!digit_b->next) {
-			return 0;
-		}
-		digit_a = digit_a->next;
-		digit_b = digit_b->next;
-	}
-	
-	while(digit_a != NULL) {
-		if(digit_a->data < digit_b->data) {
-			return 1;
-		} else if(digit_a->data > digit_b->data) {
-			return 0;
-		}
-		digit_a = digit_a->previous;
-		digit_b = digit_b->previous;
-	}
-	return 0; //são iguais
-}
-*/
 void remove_left_zeros(BigNumber number) {
 	BigNumber_Node digit = number->tail;
 	while(digit->data == '0' && digit->previous != NULL) {

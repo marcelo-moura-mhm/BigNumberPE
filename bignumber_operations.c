@@ -75,5 +75,7 @@ BigNumber bignumber_division(BigNumber a, BigNumber b) {
 		res = bignumber_pos_slow_division(c, d);
 		res->signal = '-';
 	}
+	free(c);
+	free(d);
 	return res;
 }
